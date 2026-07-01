@@ -2,6 +2,10 @@
 
 A REST API that answers questions about a pizza restaurant by searching real customer reviews using vector search and OpenAI's GPT-4o-mini. Built with FastAPI, LangChain, and ChromaDB.
 
+🔗 **Live Demo:** https://restaurant-review-chatbot.onrender.com
+
+📖 **Interactive API Docs:** https://restaurant-review-chatbot.onrender.com/docs
+
 ## How it works
 
 1. Customer reviews are loaded from a CSV file
@@ -20,6 +24,7 @@ This is a Retrieval Augmented Generation (RAG) system that searches by meaning, 
 - **History tracking** — every question and answer saved to SQLite with timestamps
 - **Raw data access** — view all reviews directly without going through the AI
 - **Auto docs** — FastAPI generates interactive documentation at `/docs`
+- **Live deployment** — hosted on Render, accessible from anywhere
 
 ## Requirements
 
@@ -57,15 +62,19 @@ This is a Retrieval Augmented Generation (RAG) system that searches by meaning, 
 
 ## Usage
 
-Start the server:
+### Run locally
 
 ```
 uvicorn main:app --reload
 ```
 
-Then open `http://127.0.0.1:8000/docs` in your browser to use the interactive API documentation.
+Then open `http://127.0.0.1:8000/docs` to test all endpoints interactively.
 
-> Note: the first run will take longer than usual since every review needs to be converted into an embedding and stored in ChromaDB. After that, the vector database is reused on future runs.
+### Use the live version
+
+Visit https://restaurant-review-chatbot.onrender.com/docs to test the deployed API directly in your browser — no setup required.
+
+> Note: the first local run will take longer than usual since every review needs to be converted into an embedding and stored in ChromaDB. After that, the vector database is reused on future runs.
 
 ---
 
@@ -74,7 +83,7 @@ Then open `http://127.0.0.1:8000/docs` in your browser to use the interactive AP
 Ask a question and get an answer synthesized from relevant customer reviews.
 
 ```
-POST http://127.0.0.1:8000/ask
+POST https://restaurant-review-chatbot.onrender.com/ask
 Content-Type: application/json
 
 {
@@ -97,7 +106,7 @@ Response:
 Returns all customer reviews directly from the CSV, with no AI involved.
 
 ```
-GET http://127.0.0.1:8000/reviews
+GET https://restaurant-review-chatbot.onrender.com/reviews
 ```
 
 Response:
@@ -120,7 +129,7 @@ Response:
 Returns all previous questions and answers with timestamps.
 
 ```
-GET http://127.0.0.1:8000/history
+GET https://restaurant-review-chatbot.onrender.com/history
 ```
 
 Response:
@@ -159,3 +168,4 @@ restaurant-review-chatbot/
 - Designing prompts that stay grounded in source data while still allowing natural synthesis across multiple documents
 - Reusing a SQLite history pattern across different projects
 - Structuring a FastAPI project with clear separation between API logic, vector search logic, and database logic
+- Deploying a FastAPI app to Render with environment variable management

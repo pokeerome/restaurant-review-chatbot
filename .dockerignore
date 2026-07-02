@@ -1,0 +1,11 @@
+.env
+.git
+.gitignore
+.venv
+.python-version
+__pycache__/
+chrome_langchain_db/
+history.db
+uv.lock
+pyproject.toml
+README.md

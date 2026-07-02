@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "docker>=7.1.0",
     "fastapi>=0.138.2",
     "ipykernel>=7.3.0",
     "langchain-chroma>=1.1.0",

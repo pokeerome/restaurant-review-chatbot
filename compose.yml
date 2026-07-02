@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MODEL_NAME=gpt-4o-mini
+      - CSV_FILE=realistic_restaurant_reviews.csv

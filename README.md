@@ -25,6 +25,7 @@ This is a Retrieval Augmented Generation (RAG) system that searches by meaning, 
 - **Raw data access** — view all reviews directly without going through the AI
 - **Auto docs** — FastAPI generates interactive documentation at `/docs`
 - **Live deployment** — hosted on Render, accessible from anywhere
+- **Docker support** — run locally in a container with a single command
 
 ## Requirements
 
@@ -69,6 +70,24 @@ uvicorn main:app --reload
 ```
 
 Then open `http://127.0.0.1:8000/docs` to test all endpoints interactively.
+
+### Run with Docker
+
+Make sure [Docker Desktop](https://www.docker.com/products/docker-desktop) is installed and running, then:
+
+```
+docker compose up --build
+```
+
+Then open `http://127.0.0.1:8000/docs` in your browser.
+
+To stop the container:
+
+```
+docker compose down
+```
+
+> Note: make sure your `.env` file exists with your `OPENAI_API_KEY` before running Docker — the container reads from it automatically.
 
 ### Use the live version
 
@@ -154,7 +173,11 @@ restaurant-review-chatbot/
 ├── main.py                          # FastAPI app — endpoints and request handling
 ├── vector.py                        # ChromaDB setup, embeddings, and retriever
 ├── database.py                      # SQLite database logic — init, save, fetch history
+├── Dockerfile                       # Docker image instructions
+├── compose.yml                      # Docker Compose configuration
+├── requirements.txt                 # Project dependencies
 ├── realistic_restaurant_reviews.csv # Sample customer reviews dataset
+├── .dockerignore                    # Files excluded from Docker image
 ├── .gitignore
 └── README.md
 ```
@@ -169,3 +192,5 @@ restaurant-review-chatbot/
 - Reusing a SQLite history pattern across different projects
 - Structuring a FastAPI project with clear separation between API logic, vector search logic, and database logic
 - Deploying a FastAPI app to Render with environment variable management
+- Dockerizing a FastAPI app with Dockerfile, compose.yml, and .dockerignore
+- Passing environment variables securely into Docker containers

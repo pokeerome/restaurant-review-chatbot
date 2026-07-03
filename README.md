@@ -26,6 +26,7 @@ This is a Retrieval Augmented Generation (RAG) system that searches by meaning, 
 - **Auto docs** — FastAPI generates interactive documentation at `/docs`
 - **Live deployment** — hosted on Render, accessible from anywhere
 - **Docker support** — run locally in a container with a single command
+- **Evaluation suite** — automated tests to verify chatbot quality and catch regressions
 
 ## Requirements
 
@@ -166,6 +167,39 @@ Response:
 
 ---
 
+## Evaluations
+
+This project includes a Level 1 evaluation suite to systematically test chatbot quality and catch regressions when the prompt or data changes.
+
+### Run the tests
+
+```
+python evals/test_chatbot.py
+```
+
+### What gets tested
+
+- Pizza quality questions return relevant, detailed answers
+- Specific ingredient questions (buffalo mozzarella) are answered correctly
+- Negative feedback from reviews is surfaced when asked
+- Out-of-scope questions are properly rejected without leaking outside knowledge
+
+### Expected output
+
+```
+Running chatbot evaluations...
+
+✅ test_pizza_quality_question
+✅ test_mozzarella_question
+✅ test_negative_review_question
+✅ test_answer_stays_grounded
+
+Results: 4/4 tests passed
+🎉 All tests passed!
+```
+
+---
+
 ## Project structure
 
 ```
@@ -179,7 +213,13 @@ restaurant-review-chatbot/
 ├── realistic_restaurant_reviews.csv # Sample customer reviews dataset
 ├── .dockerignore                    # Files excluded from Docker image
 ├── .gitignore
-└── README.md
+├── README.md
+└── evals/
+    ├── test_chatbot.py              # Level 1 unit tests for chatbot quality
+    └── events/
+        ├── pizza_quality.json       # Sample question — pizza quality
+        ├── mozzarella.json          # Sample question — specific ingredient
+        └── negative_review.json     # Sample question — complaints and issues
 ```
 
 ## What I learned building this
@@ -194,3 +234,5 @@ restaurant-review-chatbot/
 - Deploying a FastAPI app to Render with environment variable management
 - Dockerizing a FastAPI app with Dockerfile, compose.yml, and .dockerignore
 - Passing environment variables securely into Docker containers
+- Writing LLM unit tests using Python assertions to catch regressions and verify chatbot quality
+- Following the Analyze-Measure-Improve evaluation cycle for systematic AI improvement

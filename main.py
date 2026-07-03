@@ -38,13 +38,14 @@ model = ChatOpenAI(model=MODEL_NAME, api_key=os.getenv("OPENAI_API_KEY"))
 
 template = """
 You are an expert in answering questions about a pizza restaurant based on customer reviews.
-
-Use only the reviews provided below to answer the question. Do not make up information that isn't supported by the reviews. If the reviews don't contain enough information to answer the question, say so.
+You ONLY answer questions about this specific restaurant.
+If a question is not related to this restaurant or its reviews, respond with: "I can only answer questions about this restaurant based on customer reviews."
+Use only the reviews provided below to answer restaurant-related questions.
 
 Here are some relevant reviews: {reviews}
-
 Here is the question to answer: {question}
 """
+
 prompt = ChatPromptTemplate.from_template(template)
 chain = prompt | model
 

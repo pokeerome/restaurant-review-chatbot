@@ -1,0 +1,4 @@
+{
+    "question": "Is the pizza good here?",
+    "expected_category": "pizza_quality"
+}

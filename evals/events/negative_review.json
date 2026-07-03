@@ -1,0 +1,4 @@
+{
+    "question": "Are there any complaints about this place?",
+    "expected_to_contain": "negative"
+}
